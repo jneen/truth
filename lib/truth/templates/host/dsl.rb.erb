@@ -1,0 +1,6 @@
+host(<%=r name %>) {
+  loc <%=r loc %>
+  <%- interfaces.each do |int| -%>
+  <%=i int.to_dsl %>
+  <%- end -%>
+}

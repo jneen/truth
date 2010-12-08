@@ -1,0 +1,7 @@
+Truth(<%=r @version %>) {
+<%- @types.sort.each do |type, instances| -%>
+<%- instances.each do |instance| -%>
+  <%=i instance.to_dsl %>
+<%- end -%>
+<%- end -%>
+}
