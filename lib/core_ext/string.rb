@@ -74,4 +74,14 @@ class String
   def unlchomp(ch=$/)
     self.dup.unlchomp!(ch)
   end
+
+  def squish!
+    strip!
+    gsub! /\s+/, ' '
+    self
+  end
+
+  def squish
+    dup.squish!
+  end
 end
