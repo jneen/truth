@@ -1,6 +1,6 @@
 module Truth
-  class Interface
-    context Host
+  class Interface < Entity
+    context Host, :plural => :interfaces
 
     key :mac
     key :address
