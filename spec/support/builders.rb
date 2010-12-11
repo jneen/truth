@@ -3,13 +3,14 @@ module Builders
     @configuration ||= Configuration.new(1)
   end
 
-  def new_host(context, *args)
+  def new_host(*args)
     name, params = extract_args(args)
+    conf = params[:conf] || configuration
 
     name ||= Faker::Computer.hostname
     params[:loc] ||= Faker::Computer.loc
 
-    Truth::Host.new(name, params)
+    Truth::Host.new(conf, name, params)
   end
 
   def new_configuration(ver=nil)

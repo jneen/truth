@@ -9,7 +9,7 @@ module Truth
 
     def get(name)
       hashed[name] || begin
-        add(name, yield(name)) if block_given?
+        add(yield(name)) if block_given?
       end
     end
     alias [] get
