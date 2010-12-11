@@ -25,8 +25,8 @@ module Faker
     end
 
     def loc
-      city_abbr = Address.city.split.map(&:first).first(3).join.downcase
-      "u#{1+rand(40)}r#{1+rand(10)}.#{city_abbr}"
+      letters = ('a'..'z').to_a
+      (1..3).map { letters.rand }.join
     end
 
     def hostname
