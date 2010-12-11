@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'iplogic'
 require 'erubis'
+include IPLogic
 
 require File.join(
   File.dirname(__FILE__),

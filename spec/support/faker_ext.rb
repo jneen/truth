@@ -7,6 +7,7 @@ module Faker
 
   module Internet
     def ip(cidr=CIDR.all)
+      cidr = CIDR(cidr)
       IP(cidr.min + rand(cidr.size))
     end
 
