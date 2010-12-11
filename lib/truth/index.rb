@@ -23,6 +23,10 @@ module Truth
       list.size
     end
 
+    def include?(el)
+      hashed.include?(el) || list.include?(el)
+    end
+
     attr_reader :name_key, :sort_key
     def initialize(options={})
       @name_key = options[:name_key] || :name

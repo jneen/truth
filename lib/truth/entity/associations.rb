@@ -66,11 +66,24 @@ module Truth
         @indices ||= {}
       end
 
+      # will yield an interface of the given type and name
+      # before it's added to the index.  This is necessary
+      # to let the dsl set up the object before all the
+      # index hooks kick in.
       def index_get(type, name, &blk)
-        send("#{type}_index").get(name) do |n|
+        index = send("#{type}_index")
+
+        # we *could* let the index handle get-or-set,
+        # but we need to yield the object before the
+        # index gets it.
+        if index.include? name
+          yield(index[name]) if block_given?
+          index[name]
+        else
           initializer = self.class.type_initializers[type]
-          inst = initializer.call(n, self) if initializer
+          inst = initializer.call(name, self) if initializer
           yield(inst) if block_given?
+          index << inst
           inst
         end
       end
