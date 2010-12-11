@@ -1,10 +1,6 @@
 module Truth
   class Dsl
     class HostDsl < Dsl
-      def initialize(host)
-        @host = host
-      end
-
       def loc(l)
         
       end

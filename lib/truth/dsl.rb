@@ -1,15 +1,9 @@
-require_local 'dsl/host_dsl'
+require_local 'dsl/*_dsl.rb'
 
 module Truth
   class Dsl
     def initialize(target)
       @target = target
-    end
-
-    def host(name, &blk)
-      name = name.to_sym
-      host = Host.open(name)
-      Dsl::HostDsl.new(host).instance_eval(&blk)
     end
   end
 end
