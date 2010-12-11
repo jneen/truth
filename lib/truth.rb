@@ -25,3 +25,6 @@ require_local 'truth/dsl'
 
 # Truth builtin types
 require_local 'truth/host'
+require_local 'truth/interface'
+require_local 'truth/network'
+require_local 'truth/datacenter'
