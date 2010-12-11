@@ -59,6 +59,19 @@ module Truth
       "#<#{self.class.name} [ #{list_inspect} ]>"
     end
 
+    def import(index, &blk)
+      index.each do |el|
+        self << el if blk.nil? || blk.call(el)
+      end
+    end
+
+    def track(index, &blk)
+      self.import(index, &blk)
+      index.hook :add do |el|
+        self << el if blk.nil? || blk.call(el)
+      end
+    end
+
   private
     def name_of(obj)
       obj.send(name_key)
