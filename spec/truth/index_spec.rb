@@ -7,8 +7,8 @@ describe Index do
 
     @sorted_mocks = (0..5).map do |i|
       mock(
-        @name_key => "name_#{i}",
-        @sort_key => "sort_#{i}",
+        @name_key => :"name_#{i}",
+        @sort_key => :"sort_#{i}",
         :i => i,
         :inspect => "#<mock [ #{i} ]>"
       )

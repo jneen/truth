@@ -23,7 +23,7 @@ module Truth
     attr_reader :context, :name
     def initialize(context, name, keys={})
       @context = context
-      @name = name.to_sym
+      @name = name
       @keys = keys.map_keys!(&:to_sym)
     end
 

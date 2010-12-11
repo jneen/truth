@@ -8,7 +8,6 @@ module Truth
     alias to_h hashed
 
     def get(name)
-      name = name.to_sym
       hashed[name] || begin
         add(name, yield(name)) if block_given?
       end
@@ -33,7 +32,7 @@ module Truth
     def add(obj)
       hook_wrap :add, obj do
         name = name_of(obj)
-        hashed[name.to_sym] = obj
+        hashed[name] = obj
         insert_sorted(obj)
         obj
       end

@@ -44,8 +44,8 @@ module Truth
           assoc = assoc.to_sym
 
           klass.index(assoc, options) do |name, target|
-            inst = new(self, name.to_sym)
             blk.call(inst, target)
+            inst = new(self, name)
             inst
           end
         end
