@@ -18,6 +18,7 @@ def Truth(version=nil, &blk)
   return Truth unless block_given?
 
   version ||= Truth.create_version
-  config = Configuration.version(version)
-  Truth::Dsl.new(config).instance_eval(&blk)
+  config = Truth::Configuration.version(version)
+  Truth::Dsl::ConfigurationDsl.new(config).instance_eval(&blk)
+  config
 end

@@ -20,6 +20,7 @@ require_local 'core_ext'
 require_local 'truth/hookable'
 require_local 'truth/index'
 require_local 'truth/entity'
+require_local 'truth/version'
 require_local 'truth/configuration'
 require_local 'truth/dsl'
 

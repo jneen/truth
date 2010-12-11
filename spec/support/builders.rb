@@ -1,6 +1,6 @@
 module Builders
   def configuration
-    @configuration ||= Configuration.new
+    @configuration ||= Configuration.new(1)
   end
 
   def new_host(context, *args)
@@ -10,6 +10,10 @@ module Builders
     params[:loc] ||= Faker::Computer.loc
 
     Truth::Host.new(name, params)
+  end
+
+  def new_configuration(ver=nil)
+    Truth::Configuration.new(ver || rand(10))
   end
 
 private
