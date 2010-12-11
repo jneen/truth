@@ -19,9 +19,10 @@ module Truth
     end
 
     def hook_wrap(name, *args, &blk)
-      emit :"before_#{name}"
+      emit "before_#{name}", *args
       r = yield
-      emit :"after_#{name}"
+      emit "#{name}", *args
+      emit "after_#{name}", *args
       r
     end
   end
