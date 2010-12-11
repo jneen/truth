@@ -2,11 +2,12 @@ require 'rake'
 require './lib/truth'
 
 begin
-  require 'spec/rake/spectask'
-  Spec::Rake::SpecTask.new('spec') do |t|
-    t.spec_files = FileList['spec/**/*_spec.rb']
-    t.ruby_opts = ['-r spec/spec_helper.rb']
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new('spec') do |s|
+    s.pattern = 'spec/**/*_spec.rb'
+    s.ruby_opts = ['-r spec/spec_helper.rb']
   end
-rescue LoadError
-  #pass.  rspec is not required
+#rescue LoadError => e
+#  puts "Rspec not found."
+#  #pass.  rspec is not required
 end
