@@ -15,8 +15,10 @@ module Truth
       end
     end
 
-    key :cidr do |cidr|
-      CIDR(cidr)
-    end
+    alias cidr name
+
+    index :interface, :plural => :interfaces, :name_key => :address
+
+    index :name_server, :plural => :name_servers
   end
 end
