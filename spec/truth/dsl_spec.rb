@@ -67,7 +67,7 @@ describe Truth::Dsl do
       CIDR(@v[:net1][:cidr])
     )
 
-    net1 = cfg.network(CIDR(@v[:net1][:cidr]))
+    net1 = cfg.network(@v[:net1][:cidr])
 
     net1.should be_a Truth::Network
     net1.interfaces.should be_a Truth::Index

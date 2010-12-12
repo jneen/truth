@@ -9,7 +9,9 @@ module Truth
       end
     end
 
-    alias cidr name
+    def cidr
+      CIDR(name)
+    end
 
     index :interface, :plural => :interfaces, :name_key => :address
 

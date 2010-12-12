@@ -10,7 +10,7 @@ module Truth
 
       def network(*args, &blk)
         cidr = CIDR(*args)
-        network = @target.network(cidr) do |network|
+        network = @target.network(cidr.to_s) do |network|
           Dsl::NetworkDsl.new(network).instance_eval(&blk)
         end
       end

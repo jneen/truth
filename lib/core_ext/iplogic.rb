@@ -6,6 +6,10 @@ module IPLogic
   end
 
   class CIDR
+    def hash
+      self.inspect.hash
+    end
+
     include Comparable
     def <=>(other)
       self.ip <=> other.ip
