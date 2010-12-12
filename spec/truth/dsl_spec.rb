@@ -41,6 +41,7 @@ describe Truth::Dsl do
   include Builders
 
   before :each do
+    Truth::Configuration.clear
     @v = {}
 
     @v[:net1] = {}

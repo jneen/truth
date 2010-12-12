@@ -23,6 +23,11 @@ module Truth
     end
     enumerate_by :list
 
+    def clear
+      hashed.clear
+      list.clear
+    end
+
     def size
       list.size
     end

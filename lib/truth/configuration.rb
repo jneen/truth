@@ -5,6 +5,10 @@ module Truth
         Index.new(:name_key => :version)
       end
 
+      def clear
+        versions.clear
+      end
+
       def version(ver)
         versions.get(ver.to_i) do
           new(ver.to_i)
