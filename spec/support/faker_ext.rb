@@ -25,6 +25,10 @@ module Faker
     end
 
     def loc
+      "u#{10+rand(30)}r#{1+rand(10)}.#{datacenter}"
+    end
+
+    def datacenter
       letters = ('a'..'z').to_a
       (1..3).map { letters.rand }.join
     end
