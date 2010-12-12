@@ -10,6 +10,8 @@ module Truth
     include Entity::Erb
     extend Entity::Erb::ClassMethods
 
+    include Hookable
+
     class << self
       include Enumerable
 
@@ -41,7 +43,12 @@ module Truth
     end
 
     def []=(key, val)
-      @keys[key.to_sym] = val
+      key = key.to_sym
+      return self if self[key] == val
+
+      hook_wrap :"change_#{key}", self[key], val do
+        @keys[key] = val
+      end
     end
 
     def to_dsl
