@@ -1,5 +1,44 @@
 require File.join(File.dirname(__FILE__), '..', 'spec_helper')
 
+def config(v, version)
+  Truth version do
+    config = @target
+
+    host(:ns01) {
+      loc v[:loc1]
+
+      interface(:eth0) {
+        address v[:net1][:ip1]
+        mac Faker::Computer.mac_address
+      }
+
+      # this host is on both nets
+      interface(:eth1) {
+        address v[:net2][:ip1]
+        mac Faker::Computer.mac_address
+      }
+    }
+
+    network(v[:net1][:cidr]) {
+      name_server :ns01
+      name_server :ns02
+    }
+
+    network(v[:net2][:cidr]) {
+      name_server :ns01
+    }
+
+    host(:ns02) {
+      loc v[:loc2]
+
+      interface(:eth0) {
+        address v[:net1][:ip2].to_s
+        mac Faker::Computer.mac_address
+      }
+    }
+  end
+end
+
 describe Truth::Dsl do
   include Builders
 
@@ -7,17 +46,11 @@ describe Truth::Dsl do
     @v = {}
 
     @v[:net1] = {}
-    #@v[:net1][:cidr] = Faker::Internet.cidr.to_s
-    #@v[:net1][:ip1]  = Faker::Internet.ip(@v[:net1][:cidr]).to_s
-    #@v[:net1][:ip2]  = Faker::Internet.ip(@v[:net1][:cidr]).to_s
     @v[:net1][:cidr] = '10.0.1.0/24'
     @v[:net1][:ip1]  = '10.0.1.5'
     @v[:net1][:ip2]  = '10.0.1.6'
 
     @v[:net2] = {}
-    #@v[:net2][:cidr] = Faker::Internet.cidr.to_s
-    #@v[:net2][:ip1]  = Faker::Internet.ip(@v[:net1][:cidr]).to_s
-    #@v[:net2][:ip2]  = Faker::Internet.ip(@v[:net1][:cidr]).to_s
     @v[:net2][:cidr] = '10.10.0.0/20'
     @v[:net2][:ip1]  = '10.10.0.201'
     @v[:net2][:ip2]  = '10.10.0.202'
@@ -29,52 +62,30 @@ describe Truth::Dsl do
   end
 
   it "correctly parses dsl" do
-    v = @v
-    config = Truth do
-      host(:ns01) {
-        loc v[:loc1]
+    cfg = config(@v, 1)
+    cfg.should be_a Truth::Configuration
+    cfg.networks.map(&:cidr).should include(
+      CIDR(@v[:net1][:cidr])
+    )
 
-        interface(:eth0) {
-          address v[:net1][:ip1]
-          mac Faker::Computer.mac_address
-        }
+    net1 = cfg.network(CIDR(@v[:net1][:cidr]))
 
-        # this host is on both nets
-        interface(:eth1) {
-          address v[:net2][:ip1]
-        }
-      }
-
-      network(v[:net1][:cidr]) {
-        name_server :ns01
-        name_server :ns02
-      }
-
-      network(v[:net1][:cidr]) {
-        name_server :ns01
-      }
-
-      host(:ns02) {
-        loc v[:loc2]
-
-        interface(:eth0) {
-          address v[:net1][:ip2].to_s
-          mac Faker::Computer.mac_address
-        }
-      }
-    end
-
-    config.should be_a Truth::Configuration
-    config.networks.map(&:name).should include(CIDR(v[:net1][:cidr]))
-
-    net1 = config.network(CIDR(v[:net1][:cidr]))
     net1.should be_a Truth::Network
     net1.interfaces.should be_a Truth::Index
 
     net1.interfaces.map(&:address).map(&:to_s).sort.should == [
-      v[:net1][:ip1],
-      v[:net1][:ip2]
+      @v[:net1][:ip1],
+      @v[:net1][:ip2]
     ].sort
 
+  end
+
+  it "correctly renders dsl" do
+    cfg = config(@v, 2)
+    cfg.to_dsl.should be_a String
+
+    evald = eval(cfg.to_dsl)
+    evald.should be_a Truth::Configuration
+    evald.to_dsl.should == cfg.to_dsl
   end
 end
