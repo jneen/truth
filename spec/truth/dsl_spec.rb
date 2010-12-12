@@ -87,4 +87,36 @@ describe Truth::Dsl do
     evald.should be_a Truth::Configuration
     evald.to_dsl.should == cfg.to_dsl
   end
+
+  it "correctly handles changes" do
+    cfg = config(@v, 3)
+
+    int = cfg.hosts[:ns02].interfaces[:eth0]
+
+    cfg.networks['10.10.0.0/20'].interfaces.
+      should_not include(int)
+
+    cfg.networks['10.0.1.0/24'].interfaces.
+      should include(int)
+
+    # now open it up and change it
+    # move ns02 to the new network
+    cfg = Truth 3 do
+      host(:ns02) {
+        interface(:eth0) {
+          address '10.10.0.203'
+        }
+      }
+    end
+
+    cfg.should be_a Truth::Configuration
+    cfg.render_to_file(:dsl, './tmp/truth.conf.rb')
+    int.address.should == IP('10.10.0.203')
+
+    cfg.networks['10.10.0.0/20'].interfaces.
+      should include(int)
+
+    cfg.networks['10.0.1.0/24'].interfaces.
+      should_not include(int)
+  end
 end
