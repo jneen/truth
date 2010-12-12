@@ -2,6 +2,8 @@ module Truth
   class Index
     include Hookable
 
+    IndexError = Class.new(StandardError)
+
     def hashed
       @hashed ||= {}
     end
@@ -24,6 +26,7 @@ module Truth
     end
 
     def include?(el)
+      # tests for both names and objects
       hashed.include?(el) || list.include?(el)
     end
 
@@ -34,12 +37,21 @@ module Truth
     end
 
     def add(obj)
+      return self if self.include? name_of(obj)
+
       hook_wrap :add, obj do
-        name = name_of(obj)
-        hashed[name] = obj
-        insert_sorted(obj)
-        obj
+        begin
+          name = name_of(obj)
+          insert_sorted(obj)
+          hashed[name] = obj
+          obj
+        rescue Exception => e
+          delete(name)
+          raise e
+        end
       end
+
+      self
     end
     alias << add
 
@@ -47,7 +59,6 @@ module Truth
       if name.respond_to? name_key
         name = name_of(name)
       end
-      name = name.to_sym
 
       hook_wrap :delete, name do
         obj = hashed.delete(name)
@@ -87,6 +98,11 @@ module Truth
 
     # TODO: binary search, but let's not preoptimize
     def insert_sorted(obj)
+      raise IndexError, <<-msg.squish if include? obj
+        Tried to insert #{obj.inspect} into #{self.inspect},
+        which is a duplicate of #{self[name_of(obj)].inspect}.
+      msg
+
       name = sort_key_of(obj)
       inserted = false
       list.each_with_index do |e, i|
