@@ -1,10 +1,11 @@
 Truth <%=r version %> do
-<%- indices.sort.each do |type, index| %>
-  #####
-  ## <%= type.to_s.capitalize %>
-  ##
+<%- indices.sort.each do |type, index| -%>
+  ###
+  # <%= type.to_s %>
+  #
   <%- index.each do |instance| -%>
   <%=i instance.to_dsl %>
+
   <%- end -%>
 <%- end -%>
 end

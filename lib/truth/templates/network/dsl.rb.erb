@@ -1,0 +1,5 @@
+network(<%=r name %>) {
+<%- name_servers.each do |ns| -%>
+  name_server <%=r ns.name %>
+<%- end -%>
+}
