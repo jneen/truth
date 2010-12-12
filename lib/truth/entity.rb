@@ -58,5 +58,9 @@ module Truth
     def to_dsl
       render :dsl
     end
+
+    def render_to_file(type, fname)
+      File.write(fname, render(type))
+    end
   end
 end
