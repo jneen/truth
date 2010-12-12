@@ -33,6 +33,10 @@ module Truth
       @indices ||= {}
     end
 
+    def inspect
+      "<#{self.class.name} [ #{name.inspect} ]>"
+    end
+
     # climbs up the tree until the configuration returns itself
     def configuration
       self.context.configuration
