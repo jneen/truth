@@ -10,9 +10,9 @@ module Truth
     alias to_h hashed
 
     def get(name, &constructor)
-      hashed[name] || begin
+      hashed[name] || if constructor
         obj = constructor.call(name)
-        add(obj) if block_given?
+        add(obj)
         obj
       end
     end
