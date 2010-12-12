@@ -9,10 +9,14 @@ module Truth
 end
 
 def Truth(version=nil, &blk)
-  return Truth unless block_given?
+  return Truth unless version || block_given?
 
   version ||= Truth.create_version
   config = Truth::Configuration.version(version)
-  Truth::Dsl::ConfigurationDsl.new(config).instance_eval(&blk)
+
+  if blk
+    Truth::Dsl::ConfigurationDsl.new(config).instance_eval(&blk)
+  end
+
   config
 end
