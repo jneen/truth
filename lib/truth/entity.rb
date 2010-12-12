@@ -15,8 +15,9 @@ module Truth
     class << self
       include Enumerable
 
-      def open(name)
-        all[name.to_sym] ||= new(name)
+      def dsl_class
+        dsl = "#{self.name.demodulize}Dsl"
+        Truth::Dsl.const_get(dsl)
       end
     end
 

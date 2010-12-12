@@ -24,6 +24,9 @@ require_local 'truth/version'
 require_local 'truth/configuration'
 require_local 'truth/dsl'
 
+# Truth modules
+require_local 'truth/addressable'
+
 # Truth builtin types
 require_local 'truth/host'
 require_local 'truth/interface'

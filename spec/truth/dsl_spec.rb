@@ -70,9 +70,9 @@ describe Truth::Dsl do
     net1 = cfg.network(@v[:net1][:cidr])
 
     net1.should be_a Truth::Network
-    net1.interfaces.should be_a Truth::Index
+    net1.addressables.should be_a Truth::Index
 
-    net1.interfaces.map(&:address).map(&:to_s).sort.should == [
+    net1.addressables.map(&:address).map(&:to_s).sort.should == [
       @v[:net1][:ip1],
       @v[:net1][:ip2]
     ].sort
@@ -93,10 +93,10 @@ describe Truth::Dsl do
 
     int = cfg.hosts[:ns02].interfaces[:eth0]
 
-    cfg.networks['10.10.0.0/20'].interfaces.
+    cfg.networks['10.10.0.0/20'].addressables.
       should_not include(int)
 
-    cfg.networks['10.0.1.0/24'].interfaces.
+    cfg.networks['10.0.1.0/24'].addressables.
       should include(int)
 
     # now open it up and change it
@@ -113,10 +113,10 @@ describe Truth::Dsl do
     cfg.render_to_file(:dsl, './tmp/truth.conf.rb')
     int.address.should == IP('10.10.0.203')
 
-    cfg.networks['10.10.0.0/20'].interfaces.
+    cfg.networks['10.10.0.0/20'].addressables.
       should include(int)
 
-    cfg.networks['10.0.1.0/24'].interfaces.
+    cfg.networks['10.0.1.0/24'].addressables.
       should_not include(int)
   end
 end
