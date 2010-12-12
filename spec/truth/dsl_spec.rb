@@ -2,8 +2,6 @@ require File.join(File.dirname(__FILE__), '..', 'spec_helper')
 
 def config(v, version)
   Truth version do
-    config = @target
-
     host(:ns01) {
       loc v[:loc1]
 
