@@ -11,9 +11,14 @@ module Truth
     def hook(name, &blk)
       get_hooks(name) << blk
     end
+    alias on hook
 
     def emit(name, *args)
-      get_hooks(name).map do |blk|
+      # first ask the object itself
+      send(:"on_#{name}", *args) if respond_to? :"on_#{name}"
+
+      # then look for external hooks
+      get_hooks(name).each do |blk|
         blk.call(*args)
       end
     end
