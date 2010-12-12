@@ -101,7 +101,7 @@ describe Truth::Dsl do
 
     # now open it up and change it
     # move ns02 to the new network
-    cfg = Truth 3 do
+    Truth 3 do
       host(:ns02) {
         interface(:eth0) {
           address '10.10.0.203'
@@ -109,7 +109,6 @@ describe Truth::Dsl do
       }
     end
 
-    cfg.should be_a Truth::Configuration
     cfg.render_to_file(:dsl, './tmp/truth.conf.rb')
     int.address.should == IP('10.10.0.203')
 
