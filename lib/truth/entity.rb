@@ -27,9 +27,6 @@ module Truth
       @keys = keys.map_keys!(&:to_sym)
     end
 
-    def setup
-    end
-
     def indices
       @indices ||= {}
     end
