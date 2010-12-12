@@ -3,16 +3,16 @@ module Truth
     class ConfigurationDsl < Dsl
       def host(name, &blk)
         name = name.to_sym
-        host = @target.host(name)
-        Dsl::HostDsl.new(host).instance_eval(&blk)
-        host
+        @target.host(name) do |host|
+          Dsl::HostDsl.new(host).instance_eval(&blk)
+        end
       end
 
       def network(*args, &blk)
         cidr = CIDR(*args)
-        network = @target.network(cidr)
-        Dsl::NetworkDsl.new(network).instance_eval(&blk)
-        network
+        network = @target.network(cidr) do |network|
+          Dsl::NetworkDsl.new(network).instance_eval(&blk)
+        end
       end
     end
   end
