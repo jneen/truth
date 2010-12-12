@@ -9,9 +9,11 @@ module Truth
     end
     alias to_h hashed
 
-    def get(name)
+    def get(name, &constructor)
       hashed[name] || begin
-        add(yield(name)) if block_given?
+        obj = constructor.call(name)
+        add(obj) if block_given?
+        obj
       end
     end
     alias [] get
@@ -81,10 +83,14 @@ module Truth
     end
 
     def track(index, &blk)
-      self.import(index, &blk)
-      index.hook :add do |el|
+      index.always do |el|
         self << el if blk.nil? || blk.call(el)
       end
+    end
+
+    def always(&blk)
+      each(&blk)
+      hook(:add, &blk)
     end
 
   private
