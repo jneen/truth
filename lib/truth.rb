@@ -26,6 +26,7 @@ require_local 'truth/dsl'
 
 # Truth modules
 require_local 'truth/addressable'
+require_local 'truth/locatable'
 
 # Truth builtin types
 require_local 'truth/host'
