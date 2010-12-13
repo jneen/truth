@@ -28,6 +28,7 @@ module Truth
       @context = context
       @name = name
       @keys = keys.map_keys!(&:to_sym)
+      emit :create
     end
 
     def indices

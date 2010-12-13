@@ -52,6 +52,7 @@ module Truth
             inst
           end
         end
+
       private
         def to_key(obj)
           obj = obj.name if obj.respond_to? :name

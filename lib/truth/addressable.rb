@@ -1,4 +1,8 @@
 module Truth
+  Configuration.cache(:addressables) do
+    Index.new(:name_key => :address_str)
+  end
+
   module Addressable
     class << self
       def included(klass)
@@ -14,12 +18,17 @@ module Truth
       end
     end
 
+    # TODO: is there a way to make this cleaner?
     def on_change_address(old, new)
+      configuration.addressables.remove(self)
+      configuration.addressables << self
+
       configuration.networks.each do |net|
+        net.addressables.remove(self)
         if net.cidr.include? new
           net.addressables << self
         else
-          net.addressables.delete(self)
+          net.addressables.remove(self)
         end
       end
     end
