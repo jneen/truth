@@ -1,0 +1,6 @@
+datacenter(<%=r name %>) {
+<%- switches.each do |switch| -%>
+
+  <%=i switch.to_dsl %>
+<%- end -%>
+}

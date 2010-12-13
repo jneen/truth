@@ -20,6 +20,12 @@ module Truth
           Dsl::VIPDsl.new(vip).instance_eval(&blk)
         end
       end
+
+      def datacenter(name, &blk)
+        @target.datacenter(name.to_sym) do |dc|
+          Dsl::DatacenterDsl.new(dc).instance_eval(&blk)
+        end
+      end
     end
   end
 end

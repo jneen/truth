@@ -36,6 +36,18 @@ def config(v, version)
     }
 
     vip(:mailgate) { address v[:net2][:ip2] }
+
+    datacenter(:sfo) {
+      switch(1) {
+        rack_unit 23
+        address '10.5.0.1'
+      }
+
+      switch(2) {
+        rack_unit 23
+        address '10.5.0.2'
+      }
+    }
   end
 end
 
