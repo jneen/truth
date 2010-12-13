@@ -43,6 +43,14 @@ module Truth
           ruby
         end
 
+        def includes(type, &blk)
+          define_method :on_create do
+            send(type).import(configuration.send(type)) do |obj|
+              !blk || blk.call(self, obj)
+            end
+          end
+        end
+
         def context(klass, options={}, &blk)
           assoc = options.delete(:as) || self.name.demodulize.underscore
           assoc = assoc.to_sym
