@@ -63,22 +63,23 @@ module Truth
     alias << add
 
     def delete(name)
-      if name.respond_to? name_key
-        name = name_of(name)
-      end
-
       hook_wrap :delete, name do
         obj = hashed.delete(name)
         list.reject! { |el| name_of(el) == name }
       end
     end
 
-    def inspect
-      list_inspect = list.map do |el|
-        name_of(el)
-      end.map(&:inspect).join(', ')
+    # removes an object by pointer.
+    # works even if the name has changed
+    def remove(obj)
+      hashed.each do |k,v|
+        hashed.delete(k) if v == obj
+      end
+      list.reject! { |el| el == obj }
+    end
 
-      "#<#{self.class.name} [ #{list_inspect} ]>"
+    def inspect
+      "#<#{self.class.name} #{list.inspect}>"
     end
 
     def import(index, &blk)
