@@ -34,6 +34,8 @@ def config(v, version)
         mac Faker::Computer.mac_address
       }
     }
+
+    vip(:mailgate) { address v[:net2][:ip2] }
   end
 end
 

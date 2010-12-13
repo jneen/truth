@@ -14,6 +14,12 @@ module Truth
           Dsl::NetworkDsl.new(network).instance_eval(&blk)
         end
       end
+
+      def vip(name, &blk)
+        @target.vip(name.to_sym) do |vip|
+          Dsl::VIPDsl.new(vip).instance_eval(&blk)
+        end
+      end
     end
   end
 end
