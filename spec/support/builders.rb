@@ -1,6 +1,6 @@
 module Builders
   def configuration
-    @configuration ||= Configuration.new(1)
+    @configuration ||= Truth::Configuration.new(1)
   end
 
   def new_host(*args)
