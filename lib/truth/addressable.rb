@@ -20,15 +20,11 @@ module Truth
 
     # TODO: is there a way to make this cleaner?
     def on_change_address(old, new)
-      configuration.addressables.remove(self)
-      configuration.addressables << self
+      configuration.addressables.update_membership(self)
 
       configuration.networks.each do |net|
-        net.addressables.remove(self)
-        if net.cidr.include? new
-          net.addressables << self
-        else
-          net.addressables.remove(self)
+        net.addressables.update_membership(self) do
+          net.cidr.include? new
         end
       end
     end

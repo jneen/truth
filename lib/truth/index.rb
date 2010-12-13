@@ -69,6 +69,14 @@ module Truth
       end
     end
 
+    # use this on an object if its name_key changes.
+    # also pass in an optional condition of whether
+    # to add it back in at all.
+    def update_membership(obj, &blk)
+      remove(obj)
+      add(obj) if !blk || blk.call(obj)
+    end
+
     # removes an object by pointer.
     # works even if the name has changed
     def remove(obj)
