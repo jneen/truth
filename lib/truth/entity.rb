@@ -36,7 +36,7 @@ module Truth
     end
 
     def inspect
-      "<#{self.class.name} [ #{name.inspect} ]>"
+      "<#{self.class.name} [ #{name.inspect} #{@keys && @keys.inspect} ]>"
     end
 
     # climbs up the tree until the configuration returns itself
