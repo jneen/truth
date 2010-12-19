@@ -9,7 +9,7 @@ module Truth
 
       def delegate(meth, name, &blk)
         @target.send(meth, name) do |obj|
-          obj.dsl_eval(&blk)
+          obj.dsl_eval(&blk) if blk
         end
       end
     end
