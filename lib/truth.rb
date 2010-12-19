@@ -15,6 +15,19 @@ module Truth
   DIRS[:vendor] = File.expand_path(File.join(DIRS[:root]), 'vendor')
 end
 
+def Truth(version=nil, &blk)
+  return Truth unless version || block_given?
+
+  version ||= Truth.create_version
+  config = Truth::Configuration.version(version)
+
+  if blk
+    config.dsl_eval(&blk)
+  end
+
+  config
+end
+
 # Truth core
 require_local 'core_ext'
 require_local 'truth/hookable'
@@ -22,7 +35,6 @@ require_local 'truth/index'
 require_local 'truth/entity'
 require_local 'truth/version'
 require_local 'truth/configuration'
-require_local 'truth/dsl'
 
 # Truth modules
 require_local 'truth/addressable'

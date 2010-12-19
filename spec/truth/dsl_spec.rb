@@ -51,7 +51,7 @@ def config(v, version)
   end
 end
 
-describe Truth::Dsl do
+describe Truth::Entity::Dsl do
   include Builders
 
   before :each do

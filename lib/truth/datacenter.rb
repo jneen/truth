@@ -7,5 +7,12 @@ module Truth
     end
 
     index :locatable, :name_key => :loc, :plural => :locatables
+
+    # -*- dsl methods -*-
+    class DatacenterDsl < Dsl
+      def switch(name, &blk)
+        delegate :switch, name.to_i, &blk
+      end
+    end
   end
 end

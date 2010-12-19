@@ -1,6 +1,7 @@
 require_local 'entity/associations'
 require_local 'entity/erb'
 require_local 'entity/dsl'
+require_local 'entity/dsl_methods'
 
 module Truth
   class Entity
@@ -11,8 +12,8 @@ module Truth
     include Entity::Erb
     extend Entity::Erb::ClassMethods
 
-    include Entity::Dsl
-    extend Entity::Dsl::ClassMethods
+    include Entity::DslMethods
+    extend Entity::DslMethods::ClassMethods
 
     include Hookable
 
