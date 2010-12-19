@@ -4,9 +4,17 @@ class String
 
     lines = self.split $/
     lines.each do |line|
-      line.insert(0, ' '*spaces)
+      if line.blank?
+        line.clear
+      else
+        line.insert(0, ' '*spaces)
+      end
     end
     lines.join $/
+  end
+
+  def blank?
+    !!match(/^\s+$/)
   end
 
   def undent(spaces=2)
