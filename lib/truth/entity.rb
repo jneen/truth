@@ -1,5 +1,6 @@
 require_local 'entity/associations'
 require_local 'entity/erb'
+require_local 'entity/dsl'
 
 module Truth
   class Entity
@@ -10,16 +11,10 @@ module Truth
     include Entity::Erb
     extend Entity::Erb::ClassMethods
 
+    include Entity::Dsl
+    extend Entity::Dsl::ClassMethods
+
     include Hookable
-
-    class << self
-      include Enumerable
-
-      def dsl_class
-        dsl = "#{self.name.demodulize}Dsl"
-        Truth::Dsl.const_get(dsl)
-      end
-    end
 
     # -*- Instance Methods -*-
 
