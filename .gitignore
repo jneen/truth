@@ -1,3 +1,4 @@
 .*.sw[a-z]
 hardcopy.[0-9]
 tmp/*
+.yardoc/*
