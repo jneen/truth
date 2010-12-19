@@ -5,6 +5,12 @@ module Truth
     def initialize(target)
       @target = target
     end
+
+    def delegate(meth, name, &blk)
+      @target.send(meth, name) do |obj|
+        obj.dsl_eval(&blk)
+      end
+    end
   end
 end
 
