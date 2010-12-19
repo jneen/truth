@@ -1,14 +1,29 @@
 module Truth
+  # an Index is a data structure sort of similiar to a sql index, but different.
+  # It
+  # * is a collection of objects
+  # * expects each object to respond to a given method (default: +:name+)
+  # * expects that method to return a consistent type, which is Comparable, and unique for each object
+  # * will keep the objects indexed in a hash by their name
+  # * will keep the objects internally sorted by name
   class Index
     include Hookable
 
     IndexError = Class.new(StandardError)
 
+    # The index as a hash of +{name_key => object}+
     def hashed
       @hashed ||= {}
     end
     alias to_h hashed
 
+    # Get the object with the given name.
+    # @param name The name of the object
+    # @yield constructor
+    #
+    # If an object with the given name is not found
+    # and a block is given, the block is yielded,
+    # and the result of the block is added to the index.
     def get(name, &constructor)
       hashed[name] || if constructor
         obj = constructor.call(name)
@@ -18,16 +33,20 @@ module Truth
     end
     alias [] get
 
+    # The index as a sorted list.
+    # All Enumerable methods act on this list.
     def list
       @list ||= []
     end
     enumerate_by :list
 
+    # Clear all the elements of this index
     def clear
       hashed.clear
       list.clear
     end
 
+    # The size of the index
     def size
       list.size
     end
@@ -48,6 +67,9 @@ module Truth
       @sort_key = options[:sort_key] || @name_key
     end
 
+    # Add an object to the index.
+    # @param [#name_key] obj the object to add to the index.
+    # @hook :before_add, :add, :after_add
     def add(obj)
       return self if self.include? name_of(obj)
 
