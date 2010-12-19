@@ -1,9 +1,5 @@
 module Truth
   module Hookable
-    def hooks
-      @hooks ||= {}
-    end
-
     def get_hooks(name)
       hooks[name.to_sym] ||= []
     end
@@ -30,5 +26,11 @@ module Truth
       emit "after_#{name}", *args
       r
     end
+
+  private
+    def hooks
+      @hooks ||= {}
+    end
+
   end
 end
