@@ -1,7 +1,7 @@
 module Truth
   module Hookable
     def get_hooks(name)
-      hooks[name.to_sym] ||= []
+      hooks[:"#{name}"] ||= []
     end
 
     def hook(name, &blk)

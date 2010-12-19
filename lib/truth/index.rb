@@ -32,9 +32,14 @@ module Truth
       list.size
     end
 
+    # Test inclusion, given an object.
     def include?(el)
-      # tests for both names and objects
-      hashed.include?(el) || list.include?(el)
+      list.include?(el)
+    end
+
+    # Test inclusion, given a key
+    def has_key?(name)
+      hashed.has_key? name
     end
 
     attr_reader :name_key, :sort_key
