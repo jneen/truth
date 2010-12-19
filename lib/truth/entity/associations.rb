@@ -85,7 +85,7 @@ module Truth
         # we *could* let the index handle get-or-set,
         # but we need to yield the object before the
         # index gets it.
-        if index.include? name
+        if index.has_key? name
           yield(index[name]) if block_given?
           index[name]
         else

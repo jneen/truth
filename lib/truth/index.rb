@@ -71,7 +71,7 @@ module Truth
     # @param [#name_key] obj the object to add to the index.
     # @hook :before_add, :add, :after_add
     def add(obj)
-      return self if self.include? name_of(obj)
+      return self if self.has_key? name_of(obj)
 
       hook_wrap :add, obj do
         begin
