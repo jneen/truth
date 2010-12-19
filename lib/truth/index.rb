@@ -56,6 +56,10 @@ module Truth
       list.include?(el)
     end
 
+    def empty?
+      list.empty?
+    end
+
     # Test inclusion, given a key
     def has_key?(name)
       hashed.has_key? name
