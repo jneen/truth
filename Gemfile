@@ -5,5 +5,5 @@ group :development do
   gem "ffaker"
 end
 
-gem "iplogic"
+gem "iplogic", '~>0.1.1'
 gem "erubis"

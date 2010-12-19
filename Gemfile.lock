@@ -6,7 +6,7 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     ffaker (1.0.0)
-    iplogic (0.1.0)
+    iplogic (0.1.1)
     rspec (2.3.0)
       rspec-core (~> 2.3.0)
       rspec-expectations (~> 2.3.0)
@@ -22,5 +22,5 @@ PLATFORMS
 DEPENDENCIES
   erubis
   ffaker
-  iplogic
+  iplogic (~> 0.1.1)
   rspec (~> 2.0)
