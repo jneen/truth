@@ -129,6 +129,9 @@ module Truth
       end
     end
 
+    # Perform a task on every object in the index,
+    # and on every object that will be added.
+    # @yield the task to perform.
     def always(&blk)
       each(&blk)
       hook(:add, &blk)
