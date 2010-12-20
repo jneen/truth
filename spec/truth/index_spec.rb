@@ -24,6 +24,7 @@ describe Index do
     @index << m
 
     @index[:"name_#{m.i}"].should == m
+    @index[:idontexist].should be_nil
   end
 
   it "can be accessed as a list, sorted" do
@@ -43,7 +44,7 @@ describe Index do
       @index << mock
     end
 
-    @index.list.each_with_index do |mock, i|
+    @index.each_with_index do |mock, i|
       mock.i.should == i
     end
 
