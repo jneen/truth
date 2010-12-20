@@ -65,10 +65,9 @@ module Truth
       hashed.has_key? name
     end
 
-    attr_reader :name_key, :sort_key
+    attr_reader :name_key
     def initialize(options={})
       @name_key = options[:name_key] || :name
-      @sort_key = options[:sort_key] || @name_key
     end
 
     # Add an object to the index.
@@ -146,10 +145,6 @@ module Truth
       obj.send(name_key)
     end
 
-    def sort_key_of(obj)
-      obj.send(sort_key)
-    end
-
     # TODO: binary search, but let's not preoptimize
     def insert_sorted(obj)
       raise IndexError, <<-msg.squish if include? obj
@@ -157,10 +152,10 @@ module Truth
         which is a duplicate of #{self[name_of(obj)].inspect}.
       msg
 
-      name = sort_key_of(obj)
+      name = name_of(obj)
       inserted = false
       list.each_with_index do |e, i|
-        if sort_key_of(e) > name
+        if name_of(e) > name
           list.insert i, obj
           inserted = true
           break

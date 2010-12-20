@@ -4,12 +4,10 @@ include Truth
 describe Index do
   before :each do
     @name_key = Faker::Lorem.word
-    @sort_key = Faker::Lorem.word
 
     @sorted_mocks = (0..5).map do |i|
       mock(
         @name_key => :"name_#{i}",
-        @sort_key => :"sort_#{i}",
         :i => i,
         :inspect => "#<mock [ #{i} ]>"
       )
@@ -17,10 +15,7 @@ describe Index do
 
     @mocks = @sorted_mocks.shuffle
 
-    @index = Index.new(
-      :name_key => @name_key,
-      :sort_key => @sort_key
-    )
+    @index = Index.new(:name_key => @name_key)
   end
 
   it "can be accessed as a hash" do
