@@ -48,8 +48,18 @@ class String
     dup.underscore!
   end
 
-  def camelcase
-    #TODO
+  def camelize!
+    downcase!
+    gsub! /\//, '::'
+    gsub! /((^|_)\w)/ do |letter|
+      letter[-1..-1].upcase
+    end
+
+    self
+  end
+
+  def camelize
+    dup.camelize!
   end
 
   def lchomp!(ch=$/)
