@@ -32,6 +32,10 @@ module Truth
 
     # -*- dsl methods -*-
     class ConfigurationDsl < Dsl
+      def context_line
+        "Truth(#{@target.version})"
+      end
+
       def host(name, &blk)
         name = name.to_sym
         delegate(:host, name.to_sym, &blk)
