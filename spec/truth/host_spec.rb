@@ -29,7 +29,8 @@ describe Truth::Host do
     host.loc.should == 'u31r2.dc1'
     host.rack_unit.should == 31
     host.rack.should == 2
-    host.datacenter.should == :dc1
+    host.datacenter.should be_a Truth::Datacenter
+    host.datacenter.name.should == :dc1
   end
 
   it "delegates to an interface" do

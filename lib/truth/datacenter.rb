@@ -6,7 +6,7 @@ module Truth
       locatable.datacenter == dc.name
     end
 
-    index :locatable, :name_key => :loc, :plural => :locatables
+    index :locatable, :name_key => :rack_slug, :plural => :locatables
 
     # -*- dsl methods -*-
     class DatacenterDsl < Dsl
