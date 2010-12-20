@@ -18,10 +18,6 @@ module Builders
     Truth::Host.new(conf, name, params)
   end
 
-  def new_configuration(ver=nil)
-    Truth::Configuration.new(ver || rand(10))
-  end
-
 private
   def extract_args(args)
     if args.size == 2
