@@ -54,6 +54,13 @@ module Truth
         def context(klass, options={}, &blk)
           assoc = options.delete(:as) || self.name.demodulize.underscore
           assoc = assoc.to_sym
+
+          nk = options[:name_key] ||= get_name_key
+
+          self.hook_instance("change_#{nk}") do |inst, old, new|
+            inst.context.indices[assoc].update_membership(inst)
+          end
+
           klass.index(assoc, options) do |name, target|
             inst = new(target, name)
             yield(inst, target) if block_given?

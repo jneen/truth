@@ -17,13 +17,31 @@ module Truth
 
     include Hookable
 
+    class << self
+      def inherited(klass)
+        klass.class_eval do
+          key :name
+        end
+      end
+
+      def get_name_key
+        @name_key || :name
+      end
+
+    private
+      def name_key(key)
+        @name_key = key.to_sym
+        key @name_key
+      end
+    end
+
     # -*- Instance Methods -*-
 
     attr_reader :context, :name
-    def initialize(context, name, keys={})
+    def initialize(context, name)
       @context = context
-      @name = name
-      @keys = keys.map_keys!(&:to_sym)
+      self[self.class.get_name_key] = name
+
       emit :create
     end
 
@@ -40,16 +58,20 @@ module Truth
       self.context.configuration
     end
 
+    def keys
+      @keys ||= {}
+    end
+
     def [](key)
-      @keys[key.to_sym]
+      keys[key.to_sym]
     end
 
     def []=(key, val)
       key = key.to_sym
-      return self if self[key] == val
+      return val if self[key] == val
 
       hook_wrap :"change_#{key}", self[key], val do
-        @keys[key] = val
+        keys[key] = val
       end
     end
 
