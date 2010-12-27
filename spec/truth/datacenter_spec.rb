@@ -33,15 +33,15 @@ describe Truth::Datacenter do
   it "has switches" do
     @config.dsl_eval do
       datacenter(:ghi) {
-        switch(1) {
+        switch('u40r1') {
           address '10.5.1.2'
         }
       }
     end
 
     dc = @config.datacenter(:ghi)
-    dc.switches.should have_key 1
-    dc.switches[1].should be_a Truth::Switch
-    dc.switches[1].address.should == '10.5.1.2'
+    dc.switches.should have_key 'u40r1.ghi'
+    dc.switches['u40r1.ghi'].should be_a Truth::Switch
+    dc.switches['u40r1.ghi'].address.should == '10.5.1.2'
   end
 end

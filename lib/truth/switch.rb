@@ -5,16 +5,16 @@ module Truth
 
     context Datacenter, :plural => :switches
 
-    def rack
-      name.to_i
+    alias datacenter context
+
+    def datacenter_name
+      datacenter.name
     end
 
-    class SwitchDsl < Dsl
-      def rack_unit(ru)
-        dc = @target.datacenter = @target.context.name
-        ru = @target.rack_unit = ru.to_i
-        @target.loc = "u#{ru}r#{@target.rack}.#{dc}"
-      end
+    def on_create
+      @name =~ /^u(\d+)r(\d+)/
+      self.rack_unit = $1.to_i
+      self.rack = $2.to_i
     end
   end
 end

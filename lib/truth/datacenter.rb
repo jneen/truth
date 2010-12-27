@@ -11,7 +11,8 @@ module Truth
     # -*- dsl methods -*-
     class DatacenterDsl < Dsl
       def switch(name, &blk)
-        delegate :switch, name.to_i, &blk
+        name = name.unchomp(".#{@target.name}")
+        delegate :switch, name, &blk
       end
     end
   end
