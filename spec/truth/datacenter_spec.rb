@@ -16,8 +16,8 @@ describe Truth::Datacenter do
 
   it "automagically appears without declaring" do
     @config.dsl_eval do
-      host(:foo) {
-        loc 'u99r8.def'
+      host('u99r8.def') {
+        name :foo
       }
     end
 

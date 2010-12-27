@@ -7,18 +7,18 @@ describe Truth::Interface do
 
   it "can be constructed with dsl" do
     @config.dsl_eval do
-      host(:foo) {
+      host('u1r1.dc') {
         interface :eth0
       }
     end
 
-    @config.host(:foo).interfaces.should have_key :eth0
-    @config.host(:foo).interfaces[:eth0].should be_a Truth::Interface
+    @config.host('u1r1.dc').interfaces.should have_key :eth0
+    @config.host('u1r1.dc').interfaces[:eth0].should be_a Truth::Interface
   end
 
   it "has a mac and an address" do
     @config.dsl_eval do
-      host(:foo) {
+      host('u1r1.dc') {
         interface(:eth1) {
           mac 'AA:AA:AA:AA:AA:AA'
           address '1.1.1.1'
@@ -26,10 +26,10 @@ describe Truth::Interface do
       }
     end
 
-    @config.host(:foo).interfaces.should have_key :eth1
-    @config.host(:foo).interfaces[:eth1].should be_a Truth::Interface
+    @config.host('u1r1.dc').interfaces.should have_key :eth1
+    @config.host('u1r1.dc').interfaces[:eth1].should be_a Truth::Interface
 
-    eth1 = @config.host(:foo).interface(:eth1)
+    eth1 = @config.host('u1r1.dc').interface(:eth1)
     eth1.mac.should == 'aa:aa:aa:aa:aa:aa'
     eth1.address.should be_a IP
     eth1.address.to_s.should == '1.1.1.1'

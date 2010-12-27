@@ -7,8 +7,6 @@ module Truth
     class << self
       def included(klass)
         klass.class_eval do
-          key :loc
-
           key :rack_unit
           key :rack
           key :datacenter_name

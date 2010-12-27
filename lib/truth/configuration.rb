@@ -36,9 +36,8 @@ module Truth
         "Truth(#{@target.version})"
       end
 
-      def host(name, &blk)
-        name = name.to_sym
-        delegate(:host, name.to_sym, &blk)
+      def host(loc, &blk)
+        delegate(:host, loc, &blk)
       end
 
       def network(*args, &blk)

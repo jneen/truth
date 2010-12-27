@@ -16,8 +16,13 @@ describe Truth::Network do
 
   it "creates with dsl and a block" do
     @config.dsl_eval do
-      host(:ns1)
-      host(:ns2)
+      host('u1r1.dc') {
+        name :ns1
+      }
+
+      host('u1r1.dc') {
+        name :ns2
+      }
 
       network('10.10.0.0/20') {
         name_server :ns1
@@ -39,7 +44,8 @@ describe Truth::Network do
 
   it "automagically detects addressables" do
     @config.dsl_eval do
-      host(:pre_on) {
+      host('u1r1.dc1') {
+        name :pre_on
         interface(:eth0) {
           address '10.3.1.1'
         }
@@ -55,7 +61,8 @@ describe Truth::Network do
         address '10.3.1.2'
       }
 
-      host(:post_off) {
+      host('u1r2.dc1') {
+        name :post_on
         interface(:eth0) {
           address '10.3.0.255'
         }
