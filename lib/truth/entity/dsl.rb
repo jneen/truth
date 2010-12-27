@@ -1,4 +1,5 @@
 require_local 'dsl/*_dsl.rb'
+require 'irb'
 
 module Truth
   class Entity
