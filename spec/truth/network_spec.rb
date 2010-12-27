@@ -25,21 +25,21 @@ describe Truth::Network do
       }
 
       network('10.10.0.0/20') {
-        name_server :ns1
+        #name_server :ns1
       }
     end
 
     @config.networks.should have_key '10.10.0.0/20'
     @config.network('10.10.0.0/20').should be_a Truth::Network
 
-    network = @config.network('10.10.0.0/20')
-    network.name_servers.should be_a Truth::Index
-    network.name_servers.should have_key :ns1
-    network.name_servers.should_not have_key :ns2
+    #network = @config.network('10.10.0.0/20')
+    #network.name_servers.should be_a Truth::Index
+    #network.name_servers.should have_key :ns1
+    #network.name_servers.should_not have_key :ns2
 
-    network.name_servers[:ns1].should be_a Truth::Host
-    network.name_servers[:ns1].object_id.
-      should == @config.hosts[:ns1].object_id
+    #network.name_servers[:ns1].should be_a Truth::Host
+    #network.name_servers[:ns1].object_id.
+    #  should == @config.hosts[:ns1].object_id
   end
 
   it "automagically detects addressables" do
