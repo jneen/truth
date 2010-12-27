@@ -22,8 +22,25 @@ module Truth
   #   # on_test here.  testing a, b, c
   #   # block here.  testing a, b, c
   module Hookable
-    def get_hooks(name)
-      hooks[:"#{name}"] ||= []
+    class << self
+      def included(klass)
+        klass.send(:extend, Hookable::ClassMethods)
+      end
+    end
+
+    module ClassMethods
+      def hook_instance(name, &blk)
+        get_instance_hooks(name) << blk
+      end
+
+    private
+      def instance_hooks
+        @instance_hooks ||= {}
+      end
+
+      def get_instance_hooks(name)
+        instance_hooks[:"#{name}"] ||= []
+      end
     end
 
     # Register a hook on this object.
@@ -40,6 +57,11 @@ module Truth
     def emit(name, *args)
       # first ask the object itself
       send(:"on_#{name}", *args) if respond_to? :"on_#{name}"
+
+      # then ask the class
+      get_class_hooks(name).each do |blk|
+        blk.call(self, *args)
+      end
 
       # then look for external hooks
       get_hooks(name).each do |blk|
@@ -83,5 +105,12 @@ module Truth
       @hooks ||= {}
     end
 
+    def get_hooks(name)
+      hooks[:"#{name}"] ||= []
+    end
+
+    def get_class_hooks(name)
+      self.class.send(:get_instance_hooks, name)
+    end
   end
 end
