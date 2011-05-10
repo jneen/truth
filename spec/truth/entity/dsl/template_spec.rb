@@ -34,9 +34,9 @@ describe Truth::Entity::Dsl::Template do
         host(:default) {
           sensor.hit(@target)
         }
-
-        host 'u22r2.yyy'
       }
+
+      host 'u22r2.yyy'
     end
   end
 end
