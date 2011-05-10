@@ -1,7 +1,7 @@
 module Builders
   def config_version
-    @config_version ||= 0
-    @config_version += 1
+    Truth.clear
+    0
   end
 
   def new_configuration

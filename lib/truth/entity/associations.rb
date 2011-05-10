@@ -98,6 +98,10 @@ module Truth
         else
           initializer = self.class.type_initializers[type]
           inst = initializer.call(name, self) if initializer
+
+          #HACK: this goes somewhere else
+          inst.dsl_eval { template :default }
+
           yield(inst) if block_given?
           index << inst
           inst

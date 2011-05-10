@@ -52,6 +52,10 @@ module Truth
       def datacenter(name, &blk)
         delegate :datacenter, name.to_sym, &blk
       end
+
+      def template_blocks
+        @templates ||= {}
+      end
     end
   end
 end

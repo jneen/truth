@@ -1,4 +1,4 @@
-require_local 'dsl/*_dsl.rb'
+require_local 'dsl/template.rb'
 require 'irb'
 
 module Truth
@@ -8,6 +8,8 @@ module Truth
     end
 
     class Dsl
+      include Template
+
       include IRB::ExtendCommandBundle
 
       # ANSI codes

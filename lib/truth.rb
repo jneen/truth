@@ -13,6 +13,10 @@ module Truth
   DIRS[:lib] = File.expand_path(File.dirname(__FILE__))
   DIRS[:root] = File.expand_path(File.join(DIRS[:lib], '..'))
   DIRS[:vendor] = File.expand_path(File.join(DIRS[:root]), 'vendor')
+
+  def self.clear
+    Configuration.clear
+  end
 end
 
 def Truth(version=nil, &blk)
@@ -47,3 +51,5 @@ require_local 'truth/network'
 require_local 'truth/datacenter'
 require_local 'truth/vip'
 require_local 'truth/switch'
+require_local 'truth/domain'
+require_local 'truth/nameable'
