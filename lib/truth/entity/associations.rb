@@ -36,11 +36,9 @@ module Truth
 
           type_initializers[type] = blk
 
-          module_eval <<-ruby, __FILE__, __LINE__
-            def #{type}(name, &blk)
-              index_get(#{type.rrepr}, name, &blk)
-            end
-          ruby
+          define_method type do |name, &block_for_index|
+            index_get(type, name, &block_for_index)
+          end
         end
 
         def includes(type, &blk)
