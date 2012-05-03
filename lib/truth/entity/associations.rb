@@ -49,6 +49,15 @@ module Truth
           end
         end
 
+        # specify that an entity is to be defined in the context
+        # of another class.  Most common is the top-level, which is
+        #
+        #     class Network
+        #       context Configuration
+        #       # ...
+        #     end
+        #
+        # It sets up an index on the specified class with the given options.
         def context(klass, options={}, &blk)
           assoc = options.delete(:as) || self.name.demodulize.underscore
           assoc = assoc.to_sym
