@@ -1,5 +1,3 @@
-require File.join(File.dirname(__FILE__), '..', 'spec_helper')
-
 describe Truth::Datacenter do
   before :each do
     @config = new_configuration

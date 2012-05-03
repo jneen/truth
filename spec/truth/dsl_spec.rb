@@ -1,5 +1,3 @@
-#require File.join(File.dirname(__FILE__), '..', 'spec_helper')
-#
 #def config(v, version)
 #  Truth version do
 #    host(:ns01) {
