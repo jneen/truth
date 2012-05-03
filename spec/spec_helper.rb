@@ -1,5 +1,6 @@
 require 'rubygems'
-require 'bundler/setup'
+require 'bundler'
+Bundler.require(:test)
 
 require 'truth'
 

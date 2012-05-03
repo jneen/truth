@@ -17,7 +17,7 @@ module Faker
   end
 
   module Computer
-    extend ModuleUtils
+    extend Faker::ModuleUtils
     extend self
 
     def mac_address

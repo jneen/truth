@@ -17,6 +17,10 @@ module Truth
   def self.clear
     Configuration.clear
   end
+
+  def self.version
+    '0.0.1'
+  end
 end
 
 def Truth(version=nil, &blk)

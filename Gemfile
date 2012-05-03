@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 gemspec
 
-group :development do
+group :test do
   gem "rspec", "~>2.0"
   gem "ffaker"
   gem "autotest"
