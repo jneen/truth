@@ -2,7 +2,7 @@ require './lib/truth'
 
 Gem::Specification.new do |s|
   s.name = 'truth'
-  s.version = IPLogic::VERSION
+  s.version = Truth.version
 
   s.authors = ["Jay Adkisson"]
   s.date = Date.today
