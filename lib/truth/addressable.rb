@@ -12,7 +12,7 @@ module Truth
 
         klass.dsl_class.class_eval do
           def address(addr)
-            @target.address = IP(addr)
+            @target.address = IP[addr]
           end
         end
       end

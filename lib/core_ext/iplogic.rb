@@ -1,7 +1,7 @@
 module IPLogic
   class IP
     def rrepr
-      "IP('#{self}')"
+      "IP[#{self.to_s.inspect}]"
     end
   end
 
@@ -16,7 +16,7 @@ module IPLogic
     end
 
     def rrepr
-      "CIDR('#{self}')"
+      "CIDR[#{self.to_s.inspect}]"
     end
   end
 end

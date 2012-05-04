@@ -76,7 +76,7 @@
 #    cfg = config(@v, 1)
 #    cfg.should be_a Truth::Configuration
 #    cfg.networks.map(&:cidr).should include(
-#      CIDR(@v[:net1][:cidr])
+#      CIDR[@v[:net1][:cidr]]
 #    )
 #
 #    net1 = cfg.network(@v[:net1][:cidr])

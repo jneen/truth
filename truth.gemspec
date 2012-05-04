@@ -33,5 +33,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.test_files = Dir.glob('spec/**/*.rb')
-end
 
+  s.add_dependency 'iplogic', '~> 0.2.1'
+  s.add_dependency 'erubis'
+end

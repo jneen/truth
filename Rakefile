@@ -8,7 +8,9 @@ begin
     s.pattern = 'spec/**/*_spec.rb'
     s.ruby_opts = ['-r ./spec/spec_helper.rb']
   end
-#rescue LoadError => e
-#  puts "Rspec not found."
-#  #pass.  rspec is not required
+
+  task :default => :spec
+rescue LoadError => e
+  puts "Rspec not found."
+  # pass.  rspec is not required to run rake tasks
 end

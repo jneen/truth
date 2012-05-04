@@ -41,7 +41,7 @@ module Truth
       end
 
       def network(*args, &blk)
-        cidr = CIDR(*args)
+        cidr = CIDR[*args]
         delegate :network, cidr.to_s, &blk
       end
 

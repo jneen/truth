@@ -7,7 +7,7 @@ module Truth
     end
 
     def cidr
-      CIDR(name)
+      CIDR[name]
     end
 
     index(:addressable,
